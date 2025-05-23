@@ -141,5 +141,23 @@ namespace Azure.ResourceManager.ProgrammableConnectivity.Tests.Tests
             await deleteGatewayOperation.WaitForCompletionResponseAsync();
             Assert.IsTrue(deleteGatewayOperation.HasCompleted);
         }
+
+        [TestCase]
+        [RecordedTest]
+        public async Task TestGetOperatorApiPlans()
+        {
+            OperatorApiPlanCollection operatorApiPlanCollection = Subscription.GetOperatorApiPlans();
+            AsyncPageable<OperatorApiPlanResource> operatorApiPlansResponse = operatorApiPlanCollection.GetAllAsync();
+
+            // Iterate through the AsyncPageable collection to process the results
+            List<OperatorApiPlanResource> operatorApiPlans = new List<OperatorApiPlanResource>();
+            await foreach (var operatorApiPlan in operatorApiPlansResponse)
+            {
+                operatorApiPlans.Add(operatorApiPlan);
+                Assert.NotNull(operatorApiPlan.Data.Name);
+            }
+
+            Assert.IsNotEmpty(operatorApiPlans);
+        }
     }
 }
