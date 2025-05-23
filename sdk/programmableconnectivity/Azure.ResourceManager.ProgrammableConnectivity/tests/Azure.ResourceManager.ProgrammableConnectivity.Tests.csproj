@@ -1,8 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup />
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="$(AzureCoreTestFramework)" />
+    <Compile Include="$(TestFrameworkSupportFiles)" LinkBase="Shared\TestFramework" />
     <ProjectReference Include="..\src\Azure.ResourceManager.ProgrammableConnectivity.csproj" />
   </ItemGroup>
 </Project>

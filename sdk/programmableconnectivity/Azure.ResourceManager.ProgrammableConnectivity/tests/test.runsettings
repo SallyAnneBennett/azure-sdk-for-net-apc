@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+<RunConfiguration>
+    <EnvironmentVariables>
+    <AZURE_TEST_MODE>Record</AZURE_TEST_MODE>
+    <AZURE_AUTHORITY_HOST>https://login.microsoftonline.com</AZURE_AUTHORITY_HOST>
+    <AZURE_SUBSCRIPTION_ID>28269522-1d13-498d-92e9-23c999c3c997</AZURE_SUBSCRIPTION_ID>
+    <AZURE_TENANT_ID>72f988bf-86f1-41af-91ab-2d7cd011db47</AZURE_TENANT_ID>
+    </EnvironmentVariables>
+</RunConfiguration>
+</RunSettings>

@@ -1,10 +1,8 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using Azure;
 using Azure.Core;
 using Azure.Core.TestFramework;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources;
 using Azure.ResourceManager.TestFramework;
 using NUnit.Framework;
@@ -14,8 +12,10 @@ namespace Azure.ResourceManager.ProgrammableConnectivity.Tests
 {
     public class ProgrammableConnectivityManagementTestBase : ManagementRecordedTestBase<ProgrammableConnectivityManagementTestEnvironment>
     {
+        public string SubscriptionId { get; set; }
         protected ArmClient Client { get; private set; }
-        protected SubscriptionResource DefaultSubscription { get; private set; }
+        public ResourceGroupCollection ResourceGroupsOperations { get; set; }
+        protected SubscriptionResource Subscription { get; private set; }
 
         protected ProgrammableConnectivityManagementTestBase(bool isAsync, RecordedTestMode mode)
         : base(isAsync, mode)
@@ -28,10 +28,11 @@ namespace Azure.ResourceManager.ProgrammableConnectivity.Tests
         }
 
         [SetUp]
-        public async Task CreateCommonClient()
+        public async Task InitializeClient()
         {
             Client = GetArmClient();
-            DefaultSubscription = await Client.GetDefaultSubscriptionAsync().ConfigureAwait(false);
+            Subscription = await Client.GetDefaultSubscriptionAsync().ConfigureAwait(false);
+            ResourceGroupsOperations = Subscription.GetResourceGroups();
         }
 
         protected async Task<ResourceGroupResource> CreateResourceGroup(SubscriptionResource subscription, string rgNamePrefix, AzureLocation location)
@@ -40,6 +41,23 @@ namespace Azure.ResourceManager.ProgrammableConnectivity.Tests
             ResourceGroupData input = new ResourceGroupData(location);
             var lro = await subscription.GetResourceGroups().CreateOrUpdateAsync(WaitUntil.Completed, rgName, input);
             return lro.Value;
+        }
+
+        public async Task<ResourceGroupResource> GetResourceGroupAsync(string name)
+        {
+            return await Subscription.GetResourceGroups().GetAsync(name);
+        }
+
+        protected async Task<GatewayCollection> GetGatewayCollectionAsync(string resourceGroupName)
+        {
+            ResourceGroupResource rg = await GetResourceGroupAsync(resourceGroupName);
+            return rg.GetGateways();
+        }
+
+        protected async Task<OperatorApiConnectionCollection> GetOperatorApiConnectionCollectionAsync(string resourceGroupName)
+        {
+            ResourceGroupResource rg = await GetResourceGroupAsync(resourceGroupName);
+            return rg.GetOperatorApiConnections();
         }
     }
 }

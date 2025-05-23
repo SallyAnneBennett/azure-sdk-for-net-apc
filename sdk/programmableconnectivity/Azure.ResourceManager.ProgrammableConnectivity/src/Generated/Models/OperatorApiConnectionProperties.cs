@@ -141,10 +141,10 @@ namespace Azure.ResourceManager.ProgrammableConnectivity.Models
         /// <summary> Links to the Terms and Conditions of the Operator API Plan that were accepted on creation. </summary>
         public IReadOnlyList<string> PlanTermsAndConditionsLinks { get; }
         /// <summary> The purpose for which the Application will use the API. Max Items 1 currently as Operators do not support multiple. </summary>
-        public IList<Purpose> Purposes { get; }
+        public IList<Purpose> Purposes { get; set; }
         /// <summary> Explanation of the reason that justifies the purpose: specifically why is the API used for the application's use case. </summary>
         public string PurposeReason { get; set; }
         /// <summary> List of ways the data returned on this API is processed. </summary>
-        public IList<DataProcessing> DataProcessingList { get; }
+        public IList<DataProcessing> DataProcessingList { get; set; }
     }
 }
