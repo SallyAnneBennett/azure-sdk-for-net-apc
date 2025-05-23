@@ -1091,6 +1091,12 @@
 # ServiceLabel: %Pinecone %Mgmt
 # ServiceOwners:                                                   @aggarwalsw
 
+# PRLabel: %Programmable Connectivity
+/sdk/programmableconnectivity/Azure.ResourceManager.*/             @sallyannebennett
+
+# ServiceLabel: %Programmable Connectivity
+# ServiceOwners:                                                   @sallyannebennett
+
 # PRLabel: %Quota
 /sdk/quota/Azure.ResourceManager.*/                                @tejasm-microsoft
 
